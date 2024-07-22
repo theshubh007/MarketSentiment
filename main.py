@@ -8,14 +8,31 @@ from bs4 import BeautifulSoup
 from pymongo import MongoClient
 import random
 import os
-from Models.BBC import BBC
+from DataModels.BBC import BBC
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.jobstores.memory import MemoryJobStore
+import pickle
+import re
+import tensorflow as tf
+
+
+# Disable oneDNN custom operations
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
+
+import numpy as np
+
+
+###################################
+#####################################
+# Define paths to the saved model and tokenizer
+MODEL_PATH = "./MLmodel/gru_model.h5"
+TOKENIZER_PATH = "./MLmodel/tokenizer.pkl"
 
 
 @asynccontextmanager
 async def app_lifespan(app: FastAPI):
     scheduler.start()
+
     yield
     scheduler.shutdown()
 
@@ -109,6 +126,62 @@ def trigger_scrape():
     scrape_bbc_news()
     # scrape_bbc_Artical("https://www.bbc.com/news/articles/cv2gpx7pnwdo")
     return {"message": "Scraping completed and news articles updated"}
+
+
+# Load the trained model and tokenizer
+def load_model_and_tokenizer(model_path, tokenizer_path):
+    model = tf.keras.models.load_model(model_path)
+    with open(tokenizer_path, "rb") as handle:
+        tokenizer = pickle.load(handle)
+    return model, tokenizer
+
+
+# model, tokenizer = load_model_and_tokenizer(MODEL_PATH, TOKENIZER_PATH)
+
+
+# Define the input format using Pydantic
+class TextInput(BaseModel):
+    text: str
+
+
+# Define the text preprocessing function
+def preprocess_text(text):
+    text = text.lower()
+    text = re.sub(r"[^\w\s]", "", text)
+    return text
+
+
+# Define the prediction function
+def predict_sentiment(text, tokenizer, model):
+    text = preprocess_text(text)
+    sequence = tokenizer.texts_to_sequences([text])
+    sequence = [
+        seq for seq in sequence if len(seq) > 0
+    ]  # Filter out empty sequences if any
+    # Handle the case where the sequence might be empty
+    if len(sequence) == 0:
+        return "Unable to process input text."
+
+    prediction = model.predict(sequence)[0]
+    predicted_class = np.argmax(prediction)
+    sentiment_labels = ["Positive", "Neutral", "Negative"]
+    sentiment = sentiment_labels[predicted_class]
+    return sentiment
+
+
+# Define the API endpoint
+@app.post("/predict")
+def predict(text_input: TextInput):
+    try:
+        text = text_input.text
+        print(text)
+        print("flag1")
+        model, tokenizer = load_model_and_tokenizer(MODEL_PATH, TOKENIZER_PATH)
+        print("flag2")
+        sentiment = predict_sentiment(text, tokenizer, model)
+        return {"sentiment": sentiment}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 if __name__ == "__main__":
