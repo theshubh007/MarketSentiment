@@ -53,7 +53,7 @@ def trigger_scrape():
     return {"message": "Scraping completed and news articles updated"}
 
 
-@app.post("/predict")
+@app.post("/classify")
 def predict(bbc_model: BBCModel):
     try:
         text = bbc_model.body
