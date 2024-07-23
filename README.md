@@ -1,11 +1,15 @@
 # MarketSentiment
 
-MarketSentiment is a powerful tool designed to analyze and classify financial and business news based on sentiment. By leveraging advanced natural language processing techniques, it provides insights into the sentiment of news articles, categorizing them as Positive, Neutral, or Negative. This enables investors, analysts, and decision-makers to quickly gauge market sentiment and make informed decisions.
+MarketSentiment is a ML tool designed to analyze and classify financial and business news based on sentiment. By leveraging a GRU (Gated Recurrent Unit) based model, it provides accurate sentiment classification, categorizing news articles as Positive, Neutral, or Negative. This empowers investors, analysts, and decision-makers to quickly understand market sentiment and make informed decisions. The project integrates advanced natural language processing techniques and offers a streamlined API for easy access to sentiment analysis.
+
+The backend of MarketSentiment is built using the FastAPI framework, known for its high performance and ease of use. FastAPI is ideal for building APIs with Python, providing asynchronous capabilities that ensure our service can handle multiple requests efficiently and with minimal latency. This robust backend service handles the ingestion of news articles, processes them through the sentiment analysis pipeline, and returns the results via a streamlined API. MongoDB is utilized for data storage, ensuring scalable and flexible management of news articles and their metadata.
 
 ## Problem It Solves
 
 - In the fast-paced world of finance and business, staying updated with the latest news and understanding its impact is crucial. However, manually sifting through vast amounts of news to gauge sentiment is time-consuming and inefficient. MarketSentiment automates this process, providing quick and accurate sentiment analysis, thus saving time and offering valuable insights for better decision-making.
 
+What is GRU?
+The Gated Recurrent Unit (GRU) is a type of recurrent neural network (RNN) architecture used for sequence data. GRUs are designed to handle the vanishing gradient problem common in traditional RNNs, making them more effective for modeling long-term dependencies in sequential data. GRUs have fewer parameters compared to LSTMs (Long Short-Term Memory networks) but still achieve comparable performance, making them a popular choice for various natural language processing tasks.
 
 ## Features
 
