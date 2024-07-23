@@ -8,7 +8,7 @@ The backend of MarketSentiment is built using the FastAPI framework, known for i
 
 - In the fast-paced world of finance and business, staying updated with the latest news and understanding its impact is crucial. However, manually sifting through vast amounts of news to gauge sentiment is time-consuming and inefficient. MarketSentiment automates this process, providing quick and accurate sentiment analysis, thus saving time and offering valuable insights for better decision-making.
 
-What is GRU?
+## What is GRU?
 The Gated Recurrent Unit (GRU) is a type of recurrent neural network (RNN) architecture used for sequence data. GRUs are designed to handle the vanishing gradient problem common in traditional RNNs, making them more effective for modeling long-term dependencies in sequential data. GRUs have fewer parameters compared to LSTMs (Long Short-Term Memory networks) but still achieve comparable performance, making them a popular choice for various natural language processing tasks.
 
 ## Features
