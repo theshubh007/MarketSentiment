@@ -1,9 +1,19 @@
 import requests
 from bs4 import BeautifulSoup
 import random
+from pydantic import BaseModel
+from typing import Optional
 from constants import user_agents
-from datetime import date,datetime
+from datetime import date, datetime
 import json
+
+
+class BBCModel(BaseModel):
+    url: str
+    category: Optional[str] = "General"
+    date: date
+    header: Optional[str]
+    body: Optional[str]
 
 
 class BBC:

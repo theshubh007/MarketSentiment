@@ -4,3 +4,6 @@ user_agents = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/603.2.4 (KHTML, like Gecko) Version/10.1.1 Safari/603.2.4",
     "My User Agent 1.0",
 ]
+
+MODEL_PATH = "./MLmodel/gru_model.h5"
+TOKENIZER_PATH = "./MLmodel/tokenizer.pkl"
