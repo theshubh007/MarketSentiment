@@ -1,3 +1,6 @@
+import os
+
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 from fastapi import FastAPI, HTTPException, Query
 import uvicorn
 from contextlib import asynccontextmanager
@@ -7,7 +10,7 @@ from Scrapping.datascrapping import (
 )
 from Classification.classifynews import classify_news, get_articles_by_category
 
-import os
+
 from DataSchemas.BBC import BBCModel
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.jobstores.memory import MemoryJobStore
@@ -85,7 +88,11 @@ def get_articles_by_category_endpoint(category: Optional[str] = None):
         print(result)
         return result
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(
+            status_code=500,
+            detail=str(e),
+            headers={"X-Error": "There was an error processing the request."},
+        )
 
 
 if __name__ == "__main__":

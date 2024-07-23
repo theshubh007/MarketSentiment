@@ -20,7 +20,8 @@ collection = db.articles
 
 def scrape_bbc_news():
     print("Scraping BBC News...")
-    url = "https://www.bbc.com/news"
+    # url = "https://www.bbc.com/news"
+    url = "https://www.bbc.com/business"
     headers = {"User-Agent": random.choice(user_agents)}
     response = requests.get(url, headers=headers)
     soup = BeautifulSoup(response.content, "html.parser")
