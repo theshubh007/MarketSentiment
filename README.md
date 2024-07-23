@@ -71,20 +71,29 @@ uvicorn main:app --reload
 ```
 http://localhost:8000/scrape
 ```
+![Alt text](DemoPictures/scrap.png)
 
-#### 2. Get News Articles by Sentiment Category
+#### 2. classify all Articles stored in MongoDB
+- Method: POST
+```
+http://127.0.0.1:8000/classify-news
+```
+![Alt text](DemoPictures/classifyalldata.png)
+
+#### 3. Get News Articles by Sentiment Category
 - Method: GET
 - categories = ["Positive News", "Negative News", "Neutral News"]
 
 ```
 http://localhost:8000/articles/?{category}
 ```
+![Alt text](DemoPictures/getcategory.png)
 
-#### 3. Predict Sentiment of a Text
+#### 4. customizely classify the Sentiment of a Text/Article
 - Method: POST
 
 ```
-http://localhost:8000/predict
+http://localhost:8000/classify
 ```
 - Body format: Json
 ```
@@ -96,6 +105,8 @@ http://localhost:8000/predict
     "body": "This is the body of the article that contains text to analyze."
 }
 ```
+
+![Alt text](DemoPictures/classify.png)
 
 
 ## Contributing
