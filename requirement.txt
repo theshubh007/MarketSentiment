@@ -1,0 +1,8 @@
+fastapi
+APScheduler==3.10.4
+uvicorn==0.30.2
+beautifulsoup4==4.12.3
+requests==2.32.3
+pymongo==4.8.0
+dnspython==2.6.1
+tensorflow==2.15.0 
